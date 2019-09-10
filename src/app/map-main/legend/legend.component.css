@@ -1,0 +1,100 @@
+/* Default Legend */
+.legend-card-grid-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.legend-card-grid-wrapper .legend-card-wrapper {
+  width: 100%;
+}
+
+.legend-card-grid-wrapper .legend-card {
+  position: relative;
+  display: inline-block;
+  width: 30%;
+  padding: 1%;
+  opacity: 0.3;
+  transition: opacity 0.4s ease-out;
+}
+
+.legend-card-grid-wrapper .legend-card .legend-card-left {
+  width: 30%;
+  display: inline-block;
+}
+
+.legend-card-grid-wrapper .legend-card .legend-card-right {
+  width: 0;
+  height: 100%;
+  display: inline-block;
+  margin-left: 5%;
+  transition: width 0.4s ease-out, border 0.4s ease-out;
+}
+
+.legend-card-grid-wrapper .legend-card .legend-card-left>img {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+}
+
+.legend-card-grid-wrapper .legend-card .legend-card-text {
+  font-size: 9px;
+  color: white;
+}
+
+.legend-card-grid-wrapper .legend-card-right p {
+  width: 100%;
+  height: 100%;
+}
+
+/* 2nd CSS OPTION */
+
+.legend-card-vertical-wrapper {
+  width: 70px;
+  height: 100%;
+  position: relative;
+  text-align: center;
+}
+
+.legend-card-vertical-wrapper .legend-card {
+  width: 70px;
+  height: 70px;
+  margin: 7px;
+  padding: 2px;
+}
+
+.legend-card-vertical-wrapper .legend-card-left {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  position: absolute;
+}
+
+.legend-card-vertical-wrapper .legend-card-left img {
+  width: 32px;
+  height: 32px;
+  top: 7px;
+  left: 2px;
+  position: relative;
+}
+
+.legend-card-vertical-wrapper .legend-card-right {
+  position: absolute;
+  width: 0px;
+  height: 70px;
+  border-radius: 50%;
+  z-index: -1;
+  transition: margin-top 0.6s ease-out, left 0.6s ease-out, background-color 0.6s ease-out, width 0.6s ease-out, height 0.6s ease-out, border 0.6s ease-out;
+}
+.legend-card-vertical-wrapper .legend-card-text {
+  color: white;
+  top: 42px;
+  position: relative;
+  padding: 4px;
+  left: 2px;
+  height: calc(70px - 4px - 8px - 32px);
+}
+.legend-card-vertical-wrapper .legend-card-text p {
+ transform: translateY(-50%);
+ font-size: 7.2px;
+}

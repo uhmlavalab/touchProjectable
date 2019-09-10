@@ -1,0 +1,42 @@
+<!-- This component covers the left section of the map display that has the white background and
+  is responsible for all interaction with the pucks -->
+<!--<app-interaction-element class="interaction-container"></app-interaction-element>-->
+
+<!-- This component contains the map, charts, etc that is displayed on the right side of the table -->
+<app-map-element class="map-container" [style.top]="plan.css.map.top" [style.left]="plan.css.map.left" cdkDrag>
+</app-map-element>
+<app-legend class="legend-container" [ngStyle]="{'top': top, 'left': left, 'width': width}" cdkDrag>
+</app-legend>
+<app-title class="title-container" [style.top]="plan.css.title.top" [style.left]="plan.css.title.left" cdkDrag>
+</app-title>
+<app-line-chart class="line-chart" [style.top]="plan.css.charts.line.top" [style.left]="plan.css.charts.line.left"
+  cdkDrag>
+</app-line-chart>
+<app-pie-chart class="pie-chart" [style.top]="plan.css.charts.pie.top" [style.left]="plan.css.charts.pie.left" cdkDrag>
+</app-pie-chart>
+<app-scenario class="scenario-container" [style.top]="plan.css.scenario.top" [style.left]="plan.css.scenario.left"
+  cdkDrag></app-scenario>
+<app-video-feed></app-video-feed>
+<div class="tracking-dot year" #trackingDotYear>
+  <app-year-puck></app-year-puck>
+</div>
+<div class="tracking-dot layer" #trackingDotLayer>
+  <app-layer-puck></app-layer-puck>
+</div>
+<div class="tracking-dot add" 
+[style.borderColor]="addColor" #trackingDotAdd>
+  <app-add-puck></app-add-puck>
+</div>
+<div class="connecting-line" #connectingLine>
+</div>
+
+
+<div class="tracking-dot scenario" #trackingDotScenario>
+  <div class="display">
+    <p><span class="purple">Scenario</span></p>
+  </div>
+  <div class="center-container">
+    <p>Rotate Puck to Change Scenario</p>
+  </div>
+  <div class="scenario-text">{{ currentScenario }}</div>
+</div>

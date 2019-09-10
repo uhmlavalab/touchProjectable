@@ -1,0 +1,152 @@
+/* Classes for the second-screen wrapper */
+
+.second-screen-container {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+.second-screen-container .background-image {
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.left-card {
+  position: absolute;
+  left: 2vw;
+  top: 2vh;
+  height: calc(96vh - 20px);
+  width: calc(46vw - 20px);
+  padding: 10px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.left-card img {
+  width: 95%;
+}
+
+.left-card p {
+  text-align: center;
+    padding: 50px;
+    font-size: 20px;
+}
+
+.right-card {
+  position: absolute;
+  left: 50vw;
+  top: 2vw;
+  height: calc(96vh - 20px);
+  width: calc(48vw - 20px);
+  padding: 10px;
+  text-align: center;
+}
+
+.right-card .chart-title {
+  position: absolute;
+  width: 100%;
+  font-size: 28px;
+  top: -1%;
+}
+.right-card img {
+  opacity: 0.9;
+  width: 100%;
+  border-radius: 3px;
+  top: 9%;
+  position: relative;
+}
+
+.right-card .year-display-container {
+  width: 100%;
+  top: 76%;
+  position: absolute;
+}
+
+.right-card .year-display-container h1 {
+  font-size: 55px;
+  font-variant: small-caps;
+}
+
+.loading {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: calc(50% - 64px);
+  color: white;
+}
+
+.loading>h2 {
+  font-variant: small-caps;
+}
+
+.lds-facebook {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  left: 6px;
+  width: 13px;
+  background: purple;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+
+.lds-facebook div:nth-child(1) {
+  left: 6px;
+  animation-delay: -0.24s;
+}
+
+.lds-facebook div:nth-child(2) {
+  left: 26px;
+  animation-delay: -0.12s;
+}
+
+.lds-facebook div:nth-child(3) {
+  left: 45px;
+  animation-delay: 0;
+}
+
+@keyframes lds-facebook {
+  0% {
+    top: 6px;
+    height: 51px;
+  }
+
+  50%,
+  100% {
+    top: 19px;
+    height: 26px;
+  }
+}
+
+.second-screen-legend-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.second-screen-legend-container .node-container {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+}
+.second-screen-legend-container .node-container .node {
+  width: 100%;
+  height: 100%;
+  border: 2px solid gray;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 100%;
+}

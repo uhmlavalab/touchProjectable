@@ -1,0 +1,16 @@
+<div class="add-remove-wrapper">
+ <div class="add-remove-circle" [style.display]="tracking ? 'none' : 'block'">
+      <h2>{{ nextLayer.displayName }}</h2>
+      <img src="{{ nextLayer.iconPath }}">
+      <p>Tap puck here to add or remove the {{ nextLayer.displayName }} layer</p>
+  </div>
+  <div class="add-remove-cards-wrapper" [style.display]="tracking ? 'none' : 'block'">
+    <div *ngFor="let layer of layers" class="add-remove-mini-card"
+      [style.border-color]="layer.active ? layer.legendColor : 'rgba(255, 255, 255, 1)'" id="mini-card-{{layer.name}}"
+      [style.display]="tracking ? 'none' : 'inline-block'"
+      appCardStyle>
+      <img src="{{ layer.iconPath }}">
+    </div>
+  </div>
+  <app-large-year class="add-remove-large-year" [style.bottom]="tracking ? '80%' : '0'"></app-large-year>
+</div>

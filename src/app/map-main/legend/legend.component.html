@@ -1,0 +1,20 @@
+<div [ngClass]="{
+  'legend-card-grid-wrapper': legendClass === 'grid',
+  'legend-card-vertical-wrapper': legendClass === 'vertical'
+}">
+  <div *ngFor="let layer of layers" class="legend-card" id="layer-card-{{layer.name}}"
+    [style.opacity]="layer.active ? 1 : 0.3">
+    <div class="legend-card-left">
+      <img src="{{ layer.iconPath }}" />
+    </div>
+    <div class="legend-card-right" [ngStyle]="getStyle(layer.active)"
+      [style.background-color]="getBackgroundColor(layer) + '77'"
+      [style.border]="layer.active ? '2px solid WHITE' : '2px solid black'" id="legend-card-right-{{layer.name}}"
+      appLegend>
+      <p></p>
+    </div>
+    <div class="legend-card-text">
+      <p>{{ layer.displayName }}</p>
+    </div>
+  </div>
+</div>

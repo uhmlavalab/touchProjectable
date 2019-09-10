@@ -1,0 +1,231 @@
+<div *ngIf="loading; else elseBlock">
+  <div class="loading">
+    <div class="lds-facebook">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <h2>Cleaning Up</h2>
+  </div>
+</div>
+<ng-template #elseBlock>
+
+  <app-bouncing-title></app-bouncing-title>
+
+  <div class="tracking-test-overlay" [style.display]="testTrack ? 'block' : 'none'">
+    <p>Align the white circle with the arrow keys to complete calibration.  Press button to confirm.</p>
+    <div class="selection-button" (click)="completeTrackTesting()">
+        Complete Calibration
+      </div>
+    <div class="tracking-dot" #trackingDot>
+        <div class="main-icon">
+            <div class="center"></div>
+          </div>
+    </div>
+  </div>
+
+  <div class="calibration-overlay" [style.display]="calibrating ? 'block' : 'none'">
+    <div class="manual-point" #manualPoint>\
+      <div class="center"></div>
+    </div>
+    <div class="manual-point-detection-container">
+      <div class="marker-detected-details">
+        Marker Currently Detected: {{ markerDetected }} <br/>
+        Bottom Cam X: {{ centerX }} <br/>
+        Bottom Cam Y: {{ centerY }} <br/>
+        Top Cam X: {{ centerX2 }} <br/>
+        Top Cam Y: {{ centerY2 }}
+      </div>
+      <div class="selection-button" (click)="confirmPosition()">
+        Confirm Position
+      </div>
+      <div class="warning" [style.opacity]="detectionWarning ? '1' : '0'">
+        Oops!  Lost track of the marker, try again.
+      </div>
+    </div>
+  </div>
+
+  <!-- Selection Buttons -->
+  <div class="landing-buttons-container">
+    <div *ngFor="let button of buttons" class="selection-button" id="{{ button.id }}"
+      (click)="handleSelectButtonClick($event.target)">
+      {{ button.text }}
+    </div>
+    <!-- back button is only displayed when the map selection panel is not in view -->
+    <div class="selection-button" [style.display]="activePanel == 'cams' ? 'block' : 'none'" id="maps"
+      (click)="toggleLandmarks()">
+      Toggle landmarks
+    </div>
+    <!-- back button is only displayed when the map selection panel is not in view -->
+    <div class="selection-button" [style.display]="activePanel == 'cams' ? 'block' : 'none'" id="maps"
+      (click)="startCalibration()">
+      Configure
+    </div>
+    <!-- back button is only displayed when the map selection panel is not in view -->
+    <div class="selection-button" [style.opacity]="activePanel == 'maps' ? '0' : '1'" id="maps"
+      (click)="handleSelectButtonClick($event.target)">
+      Back
+    </div>
+  </div>
+
+  <!-- Contains the cards for each selectable map -->
+  <div class="map-selector-container" [style.left]="activePanel == 'maps' ? '25%' : '100%'" id="map-selector-container"
+    name="map-selector-container" appMapSelectionDirective>
+    <div *ngFor="let plan of plans" class="map-selector-box">
+      <img src="{{ plan.landingImagePath }}" />
+      <div class="map-selector-box-dark-overlay">
+        <div class="map-selector-stripe-button">
+          <h3>{{ plan.displayName }}</h3>
+        </div>
+        <div class="map-selector-start-wrapper">
+          <div class="map-selector-start-button">
+            <input type="checkbox" id="second-screen-{{plan.displayName}}"
+              (change)="handleIncludeSecondScreenCheckboxChange(plan, $event.target.checked)"> Include 2nd Screen
+            <h3 routerLink="/map-main" id="start-{{plan.displayName}}" (click)="handleStartButtonClick(plan)">Start</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cam-box-container" [style.display]="displayLandmarks ? 'block' : 'none'">
+    <div class="cam-box" id="cam-box-1"></div>
+    <div class="cam-box" id="cam-box-2"></div>
+    <div class="cam-box" id="cam-box-3"></div>
+    <div class="cam-box" id="cam-box-4"></div>
+    <!-- back button is only displayed when the map selection panel is not in view -->
+    <div class="selection-button" [style.display]="activePanel == 'cams' ? 'block' : 'none'" id="maps"
+      (click)="toggleLandmarks()">
+      Hide landmarks
+    </div>
+  </div>
+
+  <!-- Contains the camera feed cards -->
+  <div class="camera-selector-container" [style.left]="activePanel == 'cams' ? '25%' : '100%'"
+    id="camera-selector-container" name="camera-selector-container" appMapSelectionDirective>>
+    <app-video-feed></app-video-feed>
+  </div>
+
+  <!-- Contains the marker selection cards -->
+  <div class="marker-selector-container" [style.left]="activePanel == 'markers' ? '25%' : '100%'"
+    id="marker-selector-container" name="marker-selector-container" appMapSelectionDirective>
+    <div class="marker-selector-card" *ngFor="let job of jobs">
+      <img src="../../assets/images/icons/{{job.icon}}" />
+      <div class="marker-selector-card-info">
+        <h3>{{job.job}}</h3>
+        <p>Aruco Marker ID: {{job.markerId}}</p>
+        <div id="change-marker-button-{{job.job}}" class="change-marker-button"
+          (click)="handleChangeMarker($event, job.job)"
+          [style.display]="changingMarkerJob === job.job ? 'none' : 'block'">
+          Change
+        </div>
+        <div class="markers-detected" [style.display]="changingMarkerJob === job.job ? 'block' : 'none'">
+          <ul>
+            <li *ngFor="let liveMarker of liveMarkers">
+              <input name="changeMarkerGroup" type="radio" (change)="reassignMarker(job.job, liveMarker.markerId)" />
+              <label for="changeMarkerGroup">{{ liveMarker.markerId }} </label>
+            </li>
+          </ul>
+          <div class="change-marker-button" (click)="handleConfirmMarkerChange($event, job.job)">Confirm</div>
+          <div class="change-marker-button" (click)="handleCancelMarkerChange($event, job.job)">Cancel</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- contains the help selector cards -->
+  <div class="help-selector-container" [style.left]="activePanel == 'help' ? '25%' : '100%'"
+    id="help-selector-container" name="help-selector-container">
+    <div class="help-nav">
+      <ul>
+        <li [className]="help === 'keyboard' ? 'active' : ''" (click)="handleHelpNavClick($event, 'keyboard')"
+          #keyboard>
+          <span class="accent"></span>
+          <span class="text">Keyboard Controls</span>
+        </li>
+        <li [className]="help === 'cameras' ? 'active' : ''" (click)="handleHelpNavClick($event, 'cameras')" #cameras>
+          <span class="accent"></span>
+          <span class="text">Cameras</span>
+        </li>
+        <li [className]="help === 'projector' ? 'active' : ''" (click)="handleHelpNavClick($event, 'projector')"
+          #projector>
+          <span class="accent"></span>
+          <span class="text">Projector</span>
+        </li>
+        <li [className]="help === 'pucks' ? 'active' : ''" (click)="handleHelpNavClick($event, 'pucks')" #pucks>
+          <span class="accent"></span>
+          <span class="text">Pucks</span>
+        </li>
+        <li [className]="help === 'layers' ? 'active' : ''" (click)="handleHelpNavClick($event, 'layers')">
+          <span class="accent"></span>
+          <span class="text">Layers</span>
+        </li>
+        <li [className]="help === 'markers' ? 'active' : ''" (click)="handleHelpNavClick($event, 'markers')">
+          <span class="accent"></span>
+          <span class="text">Markers</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="content-container">
+
+      <!-- Keyboard Controls Help Content -->
+      <div [style.opacity]="help === 'keyboard' ? '1' : '0'">
+        <table>
+          <tr>
+            <th>Key</th>
+            <th>Function</th>
+          </tr>
+          <tr>
+            <td>Left arrow</td>
+            <td>Decrease Year by one</td>
+          </tr>
+          <tr>
+            <td>Right arrow</td>
+            <td>Increase Year by one</td>
+          </tr>
+          <tr>
+            <td>Up arrow</td>
+            <td>Cycle through layers</td>
+          </tr>
+          <tr>
+            <td>Down arrow</td>
+            <td>Cycle through layers</td>
+          </tr>
+          <tr>
+            <td>Enter</td>
+            <td>Add or Remove selected layer</td>
+          </tr>
+          <tr>
+            <td>p</td>
+            <td>Returns to setup screen from map screen</td>
+          </tr>
+          <tr>
+            <td>r</td>
+            <td>Resets map to initial state</td>
+          </tr>
+          <tr>
+            <td>a</td>
+            <td>Cycle left through the charts</td>
+          </tr>
+          <tr>
+            <td>s</td>
+            <td>Cycle right through the charts</td>
+          </tr>
+          <tr>
+            <td>q</td>
+            <td>Cycle left through the scenarios</td>
+          </tr>
+          <tr>
+            <td>w</td>
+            <td>Cycle right through the scenarios</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Camera Setup Help content -->
+      <div [style.opacity]="help === 'camera' ? '1' : '0'">
+      </div>
+    </div>
+  </div>
+</ng-template>

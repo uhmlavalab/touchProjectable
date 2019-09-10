@@ -1,0 +1,18 @@
+.bouncing-title-wrapper {
+  position: absolute;
+  color: #8291BC;
+  letter-spacing: -5px;
+  width: 100%;
+  text-align: center;
+  top: 25px;
+}
+.normal-style {
+  font-size: 40px;
+  font-weight: bolder;
+  position: relative;
+}
+.bounce-style {
+  font-size: 52px;
+  font-weight: bolder;
+  position: relative;
+}

@@ -1,0 +1,13 @@
+<div class="layer-puck-container" #layerPuckContainer>
+  <div class="icon-container" #iconContainer>
+    <div class="circle-icon" [style.borderColor]="icon.color" *ngFor="let icon of iconImages">
+      <img src="{{icon.icon}}">
+    </div>
+  </div>
+  <div class="center-container" #centerContainer>
+    <p>Rotate Puck to Select a Layer</p>
+  </div>
+  <div class="display-text">
+    {{ currentIcon.text }}
+  </div>
+</div>

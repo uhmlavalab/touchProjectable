@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\interfaces",
+    "\\src\\app\\map-main",
+    "\\src\\app\\map-main\\legend",
+    "\\src\\assets",
+    "\\src\\assets\\defaultData",
+    "\\src\\assets\\images",
+    "\\src\\assets\\images\\icons"
+  ],
+  "SelectedNode": "\\src\\app\\interfaces\\plan.ts",
+  "PreviewInSolutionExplorer": false
+}

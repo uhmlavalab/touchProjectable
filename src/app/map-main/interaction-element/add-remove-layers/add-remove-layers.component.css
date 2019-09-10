@@ -1,0 +1,84 @@
+.add-remove-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  color: white;
+}
+
+
+.add-remove-wrapper .add-remove-circle img {
+  position: absolute;
+  width: 50%;
+  top: 29%;
+  left: calc(50% - 25%);
+}
+
+
+.add-remove-cards-wrapper {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 62%;
+  height: 10%;
+}
+
+.add-remove-cards-wrapper > .add-remove-mini-card {
+  position: relative;
+  width: 6%;
+  display: inline-block;
+  height: 80%;
+  padding: 2%;
+  background-color: black;
+  border: 1px solid white;
+  margin: 1px;
+  transition: background-color 0.4s ease-out;
+}
+
+.add-remove-cards-wrapper > .add-remove-mini-card > img {
+  width: 100%;
+  height: 65%;
+  vertical-align: middle;
+}
+
+.add-remove-large-year {
+  width: 100%;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 1);
+  color: rgba(255, 255, 255, 1);
+  bottom: 0;
+  position: absolute;
+  z-index: 0;
+  font-weight: bolder;
+}
+
+.add-remove-circle {
+  width: 14vw;
+  border-radius: 50%;
+  height: 14vw;
+  border: 2px solid white;
+  position: absolute;
+  top: 4%;
+  left: calc(50% - 7vw);
+  text-align: center;
+}
+
+.add-remove-circle h2 {
+  font-size: 17px;
+  text-align: center;
+  top: 58px;
+  position: absolute;
+  width: 94%;
+  left: 3%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 1;
+}
+
+.add-remove-circle p {
+  font-size: 10px;
+  position: absolute;
+  bottom: 47px;
+  width: 94%;
+  text-align: center;
+  left: 3%;
+  background-color: rgba(0,0,0,0.5);
+}
